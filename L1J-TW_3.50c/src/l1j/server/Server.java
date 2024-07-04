@@ -35,7 +35,7 @@ public class Server {
 	private static Logger _log = Logger.getLogger(Server.class.getName());
 
 	/** 紀錄檔的路徑 */
-	private static final String LOG_PROP = "./config/log.properties";
+	private static final String LOG_PROP = "/config/log.properties";
 
 	/**
 	 * サーバメイン.

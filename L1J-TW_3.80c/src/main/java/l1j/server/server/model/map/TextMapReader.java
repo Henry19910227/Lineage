@@ -15,6 +15,7 @@
 package l1j.server.server.model.map;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 import l1j.server.Server;
 import l1j.server.server.datatables.MapsTable;
 import l1j.server.server.utils.FileUtil;
+import l1j.server.server.utils.JarFile;
 import l1j.server.server.utils.collections.Lists;
 import l1j.server.server.utils.collections.Maps;
 
@@ -36,7 +38,8 @@ public class TextMapReader extends MapReader {
 	private static Logger _log = Logger.getLogger(TextMapReader.class.getName());
 
 	/** 地圖的路徑 */
-	private static final String MAP_DIR = "/maps/";
+	private static final String MAP_DIR = "./src/main/resources/maps/";
+	private static final String MAP_DIR_JAR = "/maps/";
 
 	/** MAP_INFO 中編號的位置 */
 	public static final int MAPINFO_MAP_NO = 0;
@@ -175,17 +178,31 @@ public class TextMapReader extends MapReader {
 	 */
 	public static List<Integer> listMapIds() {
 		List<Integer> ids = Lists.newList();
-
-		InputStream in = Server.class.getResourceAsStream(MAP_DIR + "maps.txt");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		try {
-			String filename;
-			while ((filename = reader.readLine()) != null) {
-				filename = filename.split("\\.")[0];
-				ids.add(Integer.parseInt(filename));
+		// 打包成 jar 檔的狀態
+		if (JarFile.isInJar()) {
+			JarFile mapDir = new JarFile(MAP_DIR_JAR);
+			for (String name : mapDir.list()) {
+				String idStr = name.split("\\.")[0];
+				int id = Integer.parseInt(idStr);
+				ids.add(id);
 			}
-		} catch (IOException e) {
-			System.out.println(e);
+			return ids;
+		}
+		// debug 狀態
+		File mapDir = new File(MAP_DIR);
+		for (String name : mapDir.list()) {
+			File mapFile = new File(mapDir, name);
+			if (!mapFile.exists()) {
+				continue;
+			}
+			int id = 0;
+			try {
+				String idStr = FileUtil.getNameWithoutExtension(mapFile);
+				id = Integer.parseInt(idStr);
+			} catch (NumberFormatException e) {
+				continue;
+			}
+			ids.add(id);
 		}
 		return ids;
 	}

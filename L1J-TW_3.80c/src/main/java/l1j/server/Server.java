@@ -39,7 +39,7 @@ public class Server {
 	private static Logger _log = Logger.getLogger(Server.class.getName());
 
 	/** 紀錄檔的路徑 */
-	private static final String LOG_PROP = "/config/log.properties";
+	private static final String LOG_PROP = "./config/log.properties";
 
 	/**
 	 * サーバメイン.
@@ -52,7 +52,8 @@ public class Server {
 		File logFolder = new File("log");
 		logFolder.mkdir();
 		try {
-			InputStream is = Server.class.getResourceAsStream(LOG_PROP);
+			InputStream is = new BufferedInputStream(new FileInputStream(
+					LOG_PROP));
 			LogManager.getLogManager().readConfiguration(is);
 			is.close();
 		} catch (IOException e) {

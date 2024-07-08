@@ -36,7 +36,7 @@ public class TextMapReader extends MapReader {
 	private static Logger _log = Logger.getLogger(TextMapReader.class.getName());
 
 	/** 地圖的路徑 */
-	private static final String MAP_DIR = "/maps/";
+	private static final String MAP_DIR = "./maps/";
 
 	/** MAP_INFO 中編號的位置 */
 	public static final int MAPINFO_MAP_NO = 0;
@@ -176,16 +176,23 @@ public class TextMapReader extends MapReader {
 	public static List<Integer> listMapIds() {
 		List<Integer> ids = Lists.newList();
 
-		InputStream in = Server.class.getResourceAsStream(MAP_DIR + "maps.txt");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		try {
-			String filename;
-			while ((filename = reader.readLine()) != null) {
-				filename = filename.split("\\.")[0];
-				ids.add(Integer.parseInt(filename));
+		File mapDir = new File(MAP_DIR);
+		for (String name : mapDir.list()) {
+			File mapFile = new File(mapDir, name);
+			if (!mapFile.exists()) {
+				continue;
 			}
-		} catch (IOException e) {
-			System.out.println(e);
+			if (!FileUtil.getExtension(mapFile).toLowerCase().equals("txt")) {
+				continue;
+			}
+			int id = 0;
+			try {
+				String idStr = FileUtil.getNameWithoutExtension(mapFile);
+				id = Integer.parseInt(idStr);
+			} catch (NumberFormatException e) {
+				continue;
+			}
+			ids.add(id);
 		}
 		return ids;
 	}

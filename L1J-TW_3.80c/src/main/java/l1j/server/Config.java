@@ -424,17 +424,17 @@ public final class Config {
 	public static boolean CompressGzip;
 
 	/** Configuration files */
-	public static final String SERVER_CONFIG_FILE = "/config/server.properties";
+	public static final String SERVER_CONFIG_FILE = "./config/server.properties";
 
-	public static final String RATES_CONFIG_FILE = "/config/rates.properties";
+	public static final String RATES_CONFIG_FILE = "./config/rates.properties";
 
-	public static final String ALT_SETTINGS_FILE = "/config/altsettings.properties";
+	public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
 
-	public static final String CHAR_SETTINGS_CONFIG_FILE = "/config/charsettings.properties";
+	public static final String CHAR_SETTINGS_CONFIG_FILE = "./config/charsettings.properties";
 
-	public static final String FIGHT_SETTINGS_CONFIG_FILE = "/config/fights.properties";
+	public static final String FIGHT_SETTINGS_CONFIG_FILE = "./config/fights.properties";
 	
-	public static final String RECORD_SETTINGS_CONFIG_FILE = "/config/record.properties";
+	public static final String RECORD_SETTINGS_CONFIG_FILE = "./config/record.properties";
 
 	/** 其他設定 */
 
@@ -449,8 +449,7 @@ public final class Config {
 		// server.properties
 		try {
 			Properties serverSettings = new Properties();
-			InputStream is = Config.class.getResourceAsStream(SERVER_CONFIG_FILE);
-//			InputStream is = new FileInputStream(new File(SERVER_CONFIG_FILE));
+			InputStream is = new FileInputStream(new File(SERVER_CONFIG_FILE));
 			serverSettings.load(is);
 			is.close();
 
@@ -502,8 +501,7 @@ public final class Config {
 		// rates.properties
 		try {
 			Properties rateSettings = new Properties();
-			InputStream is = Config.class.getResourceAsStream(RATES_CONFIG_FILE);
-//			InputStream is = new FileInputStream(new File(RATES_CONFIG_FILE));
+			InputStream is = new FileInputStream(new File(RATES_CONFIG_FILE));
 			rateSettings.load(is);
 			is.close();
 
@@ -538,8 +536,7 @@ public final class Config {
 		// altsettings.properties
 		try {
 			Properties altSettings = new Properties();
-			InputStream is = Config.class.getResourceAsStream(ALT_SETTINGS_FILE);
-//			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
+			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
 			altSettings.load(is);
 			is.close();
 
@@ -622,8 +619,7 @@ public final class Config {
 		// charsettings.properties
 		try {
 			Properties charSettings = new Properties();
-			InputStream is = Config.class.getResourceAsStream(CHAR_SETTINGS_CONFIG_FILE);
-//			InputStream is = new FileInputStream(new File(CHAR_SETTINGS_CONFIG_FILE));
+			InputStream is = new FileInputStream(new File(CHAR_SETTINGS_CONFIG_FILE));
 			charSettings.load(is);
 			is.close();
 
@@ -700,8 +696,7 @@ public final class Config {
 		// fights.properties
 		Properties fightSettings = new Properties();
 		try {
-			InputStream is = Config.class.getResourceAsStream(FIGHT_SETTINGS_CONFIG_FILE);
-//			InputStream is = new FileInputStream(new File(FIGHT_SETTINGS_CONFIG_FILE));
+			InputStream is = new FileInputStream(new File(FIGHT_SETTINGS_CONFIG_FILE));
 			fightSettings.load(is);
 			is.close();
 			
@@ -718,8 +713,7 @@ public final class Config {
 		// record.properties
 		try {
 			Properties recordSettings = new Properties();
-			InputStream is = Config.class.getResourceAsStream(RECORD_SETTINGS_CONFIG_FILE);
-//			InputStream is = new FileInputStream(new File(RECORD_SETTINGS_CONFIG_FILE));
+			InputStream is = new FileInputStream(new File(RECORD_SETTINGS_CONFIG_FILE));
 			recordSettings.load(is);
 			is.close();
 			

@@ -38,7 +38,7 @@ public class CachedMapReader extends MapReader {
 	private static final String MAP_DIR = "./maps/";
 
 	/** cache 後地圖檔的路徑 */
-	private static final String CACHE_DIR = "./data/mapcache/";
+	private static final String CACHE_DIR = "./mapcache/";
 
 	/**
 	 * 將指定編號的地圖轉成快取的地圖格式
@@ -135,6 +135,7 @@ public class CachedMapReader extends MapReader {
 	public Map<Integer, L1Map> read() throws IOException {
 		Map<Integer, L1Map> maps = Maps.newMap();
 		for (int id : TextMapReader.listMapIds()) {
+			System.out.println("put : " + id);
 			maps.put(id, read(id));
 		}
 		return maps;
